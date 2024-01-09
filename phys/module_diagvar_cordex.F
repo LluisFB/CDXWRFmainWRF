@@ -2595,11 +2595,6 @@ MODULE module_diagvar_cordex
     
     CALL stabfunc_scalar_businger(newz, OL, stabilitynewz)
 
-    PRINT *,' Lluis tast: ', tast, ' kappa', kappa, ' k', k, 'ta', ta(k), ' hgt', hgt, ' newz', newz, ' IF', hgt > newz
-    PRINT *,'     LOG(hgt)', LOG(hgt/newz), ' stabnewz', stabilitynewz, ' stab', stability 
-    PRINT *,'     1/', 1./kappa*( LOG(hgt/newz) - stabilitynewz + stability), ' full',                &
-      tast/kappa*( LOG(hgt/newz) - stabilitynewz + stability)
-
     IF (hgt > newz) THEN
       taznew = ta(k) - tast/kappa*( LOG(hgt/newz) - stabilitynewz + stability)
       qvznew = qv(k) - qvst/kappa*( LOG(hgt/newz) - stabilitynewz + stability)
@@ -3128,6 +3123,8 @@ MODULE module_diagvar_cordex
 !   and rangeM of var2
 
     fname = 'var_residencetime_2var2D'
+    
+    tresidence2D = 0.
 
     ! Looking for the varibale1's bin
     IF (vals1 < rng1(1)) THEN
@@ -3155,7 +3152,7 @@ MODULE module_diagvar_cordex
       END DO
     END IF
 
-    tresidence2D(ir1,ir2) = tresidence2D(ir1,ir2) + dt
+    tresidence2D(ir1,ir2) = dt
 
     RETURN 
 
